@@ -13,7 +13,7 @@ Script | Description
 
 ## Examples
 
-Here are some videos made using those scripts (click on the thumbnails to see the video):
+Here are some videos made using those scripts (click on the thumbnails to see the videos):
 
 Drop h264 I-Frames | Optical Flow Transfer
 ------------------ | ---------------------
