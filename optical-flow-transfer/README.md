@@ -33,6 +33,6 @@ python optical_flow_transfer.py <source-video> <source-image> <output-video>
 
 ## Example
 
-<video src="https://i.imgur.com/pt6Sq7A.mp4" autoplay loop mute controls></video>
+[![](https://i.imgur.com/pyrsORb.jpg)](https://i.imgur.com/pt6Sq7A.mp4)
 
 I wrote some details [on my blog](https://chalier.fr/blog/datamoshing#opticalflowtransfer).
