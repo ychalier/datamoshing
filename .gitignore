@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+
+# media files
+
+*.avi
+*.yuv
+*.mp4
+*.jpg
+*.png
+*.mov
+*.h264
