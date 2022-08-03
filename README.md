@@ -13,8 +13,8 @@ Script | Description
 
 ## Examples
 
-Here are some videos made using those scripts:
+Here are some videos made using those scripts (click on the thumbnails to see the video):
 
-<video src="https://i.imgur.com/bOHT26q.mp4" autoplay loop mute controls></video>
-
-<video src="https://i.imgur.com/pt6Sq7A.mp4" autoplay loop mute controls></video>
+Drop h264 I-Frames | Optical Flow Transfer
+------------------ | ---------------------
+[![](https://i.imgur.com/hCxqsB0.jpg)](https://i.imgur.com/bOHT26q.mp4) | [![](https://i.imgur.com/pyrsORb.jpg)](https://i.imgur.com/pt6Sq7A.mp4)
