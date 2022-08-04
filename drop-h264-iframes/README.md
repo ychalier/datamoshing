@@ -78,7 +78,7 @@ There's more information on [FFmpeg's documentation](https://trac.ffmpeg.org/wik
 
 ## Example
 
-[![](https://i.imgur.com/hCxqsB0.jpg?1)](https://i.imgur.com/bOHT26q.mp4)
+[![](example.gif)](https://i.imgur.com/bOHT26q.mp4)
 
 I wrote some details [on my blog](https://chalier.fr/blog/datamoshing#droppingreferenceframes).
 
