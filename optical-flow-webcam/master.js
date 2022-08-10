@@ -55,6 +55,14 @@ async function start_optical_flow_effect() {
     await load_image();
     // await Promise.all([load_webcam(), load_image()]);
 
+    const button = document.getElementById("btn-download");
+    button.addEventListener("click", () => {
+        const link = document.createElement("a");
+        link.download = `${ Date.now() }.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+
     function takepicture() {
         let frame = new cv.Mat(height, width, cv.CV_8UC4);
         let frame_gray = new cv.Mat();
