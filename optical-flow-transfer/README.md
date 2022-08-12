@@ -36,3 +36,7 @@ python optical_flow_transfer.py <source-video> <source-image> <output-video>
 [![](example.gif)](https://i.imgur.com/pt6Sq7A.mp4)
 
 I wrote some details [on my blog](https://chalier.fr/blog/datamoshing#opticalflowtransfer).
+
+## Demo
+
+Here is a [web demonstration](www/) where you may try different video sources (such as the webcam) and image sources to perform optical flow transfer.

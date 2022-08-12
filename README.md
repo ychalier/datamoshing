@@ -18,3 +18,7 @@ Here are some videos made using those scripts (click on the thumbnails to see th
 Drop h264 I-Frames | Optical Flow Transfer
 ------------------ | ---------------------
 [![](drop-h264-iframes/example.gif)](https://i.imgur.com/bOHT26q.mp4) | [![](optical-flow-transfer/example.gif)](https://i.imgur.com/pt6Sq7A.mp4)
+
+## Demo
+
+Here is a [web demonstration](https://ychalier.github.io/datamoshing/optical-flow-transfer/www/) where you may try different video sources (such as the webcam) and image sources to perform optical flow transfer.
