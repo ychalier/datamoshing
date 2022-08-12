@@ -4,81 +4,103 @@
 
 <head>
     <meta charset="utf8">
-    <title>Optical Flow Transfer from the Webcam</title>
+    <title>Optical Flow Transfer</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/ychalier/pifekit/pifekit.min.css" />
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ychalier/pifekit/pifekit.min.js"></script>
     <script src="opencv.js"></script>
     <script src="master.js"></script>
-    <style>
-        * {
-            font-family: "Fira Code", monospace !important;
-            color: white;
-            --color-accent-0: hsl(192, 63%, 59%);
-            --color-accent-1: hsl(192, 64%, 61%);
-            --color-accent-2: hsl(192, 63%, 62%);
-            --color-accent-3: hsl(192, 63%, 64%);
-            --color-accent-4: hsl(192, 63%, 66%);
-            --color-accent-5: hsl(192, 63%, 69%);
-            --color-accent-6: hsla(192, 63%, 69%, 0.2);
-            --color-accent-7: hsla(192, 63%, 69%, 0.95);
-            --color-accent-8: hsl(192, 64%, 74%);
-            --color-accent-9: hsl(192, 63%, 79%);
-            --color-accent-a: hsl(192, 62%, 99%);
-            --color-accent-b: hsl(192, 63%, 100%);
-            --color-accent-c: hsl(192, 65%, 13%);
-            --color-accent-d: hsl(192, 67%, 89%);
-            --color-accent-e: hsl(192, 100%, 90%);
-        }
-        
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 100vh;
-            background: black;
-        }
-        
-        a:visited {
-            color: var(--color-accent-5);
-        }
-        
-        table {
-            margin: auto;
-        }
-        
-        td {
-            text-align: left;
-            vertical-align: bottom;
-        }
-        
-        canvas {
-            width: 512px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="dark-blue">
     <div class="container text-center">
-        <h1>Optical Flow Transfer from the Webcam</h1>
-        <table>
-            <tr>
-                <td>
-                    You:<br>
-                    <video id="video"></video>
-                </td>
-                <td>
-                    Transfer:<br>
-                    <canvas id="canvas"></canvas>
-                </td>
-            </tr>
-        </table>
-        <a class="c-hand" id="btn-download">Download</button>
+        <h1>Optical Flow Transfer</h1>
+
+        <div class="xcolumns">
+
+            <div class="xcolumn-left">
+                <div class="media-container" id="container-video">
+                    <button class="btn btn-primary" onclick="showModal('modal-load-video')" id="button-video-modal">Load video</button>
+                </div>
+                <div style="height: .4em"></div>
+                <div class="media-container" id="container-image">
+                    <button class="btn btn-primary" onclick="showModal('modal-load-image')" id="button-image-modal">Load image</button>
+                </div>
+            </div>
+
+            <div class="xcolumn-right">
+                <div id="container-canvas" rowspan="2">
+                    <canvas id="canvas" width="256" height="256"></canvas>
+                </div>
+                <div class="mt-4">
+                    <button class="btn" id="button-reset" disabled>Reset</button>
+                    <button class="btn" id="button-download" disabled>Download</button>
+                </div>
+            </div>
+
+        </div>
+
     </div>
     <footer class="text-center">
         <p>
             More details on my <a href="https://chalier.fr/blog/datamoshing">blog</a> · Images from <a href="https://picsum.photos/">Lorem Picsum</a>
         </p>
-        </footer>
+    </footer>
+
+    <div class="modal" id="modal-load-video">
+        <span class="modal-overlay" onclick="closeModal('modal-load-video')"></span>
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title h5">Load video</div>
+                <div class="modal-subtitle text-gray">Load a video from a URL, a local file, or your webcam</div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group pb-2">
+                    <label class="form-label" for="input-video-url">URL</label>
+                    <input class="form-input" type="url" id="input-video-url" placeholder="https://example.org/axis-cgi/mjpg/video.cgi" />
+                </div>
+                <div class="divider text-center" data-content="OR"></div>
+                <div class="form-group">
+                    <label class="form-label" for="input-video-file">File</label>
+                    <input class="form-input" type="file" id="input-video-file" accept="video/*" />
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="button-video-webcam">Webcam</button>
+                <button class="btn btn-primary" id="button-video-load">Load</button>
+                <button class="btn" onclick="closeModal('modal-load-video')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-load-image">
+        <span class="modal-overlay" onclick="closeModal('modal-load-image')"></span>
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title h5">Load image</div>
+                <div class="modal-subtitle text-gray">Load an image from a URL or a local file</div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group pb-2">
+                    <label class="form-label" for="input-image-url">URL</label>
+                    <input class="form-input" type="url" id="input-image-url" placeholder="https://example.org/image.jpg" />
+                </div>
+                <div class="divider text-center" data-content="OR"></div>
+                <div class="form-group">
+                    <label class="form-label" for="input-image-file">File</label>
+                    <input class="form-input" type="file" id="input-image-file" accept="image/*" />
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="button-image-random">Random</button>
+                <button class="btn btn-primary" id="button-image-load">Load</button>
+                <button class="btn" onclick="closeModal('modal-load-image')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>

@@ -1,0 +1,78 @@
+* {
+    font-family: "Fira Code", monospace !important;
+    color: white;
+    --color-accent-0: hsl(192, 63%, 59%);
+    --color-accent-1: hsl(192, 64%, 61%);
+    --color-accent-2: hsl(192, 63%, 62%);
+    --color-accent-3: hsl(192, 63%, 64%);
+    --color-accent-4: hsl(192, 63%, 66%);
+    --color-accent-5: hsl(192, 63%, 69%);
+    --color-accent-6: hsla(192, 63%, 69%, 0.2);
+    --color-accent-7: hsla(192, 63%, 69%, 0.95);
+    --color-accent-8: hsl(192, 64%, 74%);
+    --color-accent-9: hsl(192, 63%, 79%);
+    --color-accent-a: hsl(192, 62%, 99%);
+    --color-accent-b: hsl(192, 63%, 100%);
+    --color-accent-c: hsl(192, 65%, 13%);
+    --color-accent-d: hsl(192, 67%, 89%);
+    --color-accent-e: hsl(192, 100%, 90%);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    background: black;
+}
+
+a:visited {
+    color: var(--color-accent-5);
+}
+
+table {
+    margin: auto;
+}
+
+td {
+    text-align: left;
+    vertical-align: bottom;
+}
+
+#container-canvas canvas {
+    width: 512px;
+    height: 512px;
+}
+
+.media-container {
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 256px;
+    height: 256px;
+    border: .2em solid white;
+    overflow: hidden;
+}
+
+#container-canvas {
+    box-sizing: content-box;
+    width: 512px;
+    height: 512px;
+    border: .6em solid white;
+}
+
+canvas, video, image {
+    image-rendering: crisp-edges;
+}
+
+.xcolumns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.xcolumn-right, .xcolumn-left {
+    margin: .4em;
+}
