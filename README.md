@@ -21,4 +21,4 @@ Drop h264 I-Frames | Optical Flow Transfer
 
 ## Demo
 
-Here is a [web demonstration](https://ychalier.github.io/datamoshing/optical-flow-transfer/www/) where you may try different video sources (such as the webcam) and image sources to perform optical flow transfer.
+Here is a [web demonstration](https://chalier.fr/datamoshing/) where you may try different video sources (such as the webcam) and image sources to perform optical flow transfer.
