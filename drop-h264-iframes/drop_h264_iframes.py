@@ -181,7 +181,7 @@ def preprocess(input_path, output_path, compression_options):
     split_nalu(os.path.join(output_path, "source.h264"), output_path)
 
 
-def rebuild(input_path, output_path):
+def rebuild(input_path, output_path, framerate=30):
     with open(os.path.join(input_path, "nalu.csv"), "r", encoding="utf8", newline="") as file:
         reader = csv.DictReader(file)
         index = list(reader)
@@ -199,12 +199,12 @@ def rebuild(input_path, output_path):
     subprocess.Popen(
         [
             "ffmpeg",
-            "-loglevel",
-            "quiet",
+            "-loglevel", "quiet",
             "-stats",
             "-hide_banner",
-            "-i",
-            os.path.join(input_path, "output.h264"),
+            "-fflags", "+genpts",
+            "-r", f"{framerate}",
+            "-i", os.path.join(input_path, "output.h264"),
             output_path
         ]
     ).wait()
@@ -222,6 +222,7 @@ def main():
     parser.add_argument("-g", "--g", type=int, default=250)
     parser.add_argument("-k", "--keyint-min", type=int, default=25)
     parser.add_argument("-b", "--bf", type=int, default=0)
+    parser.add_argument("-r", "--framerate", type=float, default=30)
     args = parser.parse_args()
     compression_options = {
         "-crf": str(args.crf),
@@ -235,11 +236,11 @@ def main():
     if args.action == "preprocess":
         preprocess(args.input_path, args.output_path, compression_options)
     elif args.action == "rebuild":
-        rebuild(args.input_path, args.output_path)
+        rebuild(args.input_path, args.output_path, args.framerate)
     elif args.action == "full":
         tempdir = os.path.join(tempfile.gettempdir(), "foo")
         preprocess(args.input_path, tempdir, compression_options)
-        rebuild(tempdir, args.output_path)
+        rebuild(tempdir, args.output_path, args.framerate)
     elif args.action == "split":
         split_nalu(args.input_path, args.output_path)
     elif args.action == "probe":
