@@ -33,7 +33,7 @@ python optical_flow_transfer.py <source-video> <source-image> <output-video>
 
 ## Example
 
-[![](example.gif)](https://i.imgur.com/pt6Sq7A.mp4)
+[![](example.gif)](https://drive.chalier.fr/protected/datamoshing/optical-flow-transfer-output.mp4)
 
 I wrote some details [on my blog](https://chalier.fr/blog/datamoshing#opticalflowtransfer).
 
