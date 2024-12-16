@@ -5,6 +5,8 @@ import csv
 import os
 import tempfile
 import json
+import random
+
 import tqdm
 
 
@@ -59,9 +61,11 @@ def encode_h264(input_path, output_path, compression_options):
         "-hide_banner",
         "-i",
         input_path,
+        "-b", "0",
         "-an",
         "-vcodec",
         "libx264",
+        "-x264opts", "no-mixed-refs:intra-refresh=0",
     ]
     for key, value in compression_options.items():
         cmd += [key, value]
@@ -181,7 +185,7 @@ def preprocess(input_path, output_path, compression_options):
     split_nalu(os.path.join(output_path, "source.h264"), output_path)
 
 
-def rebuild(input_path, output_path, framerate=30):
+def rebuild(input_path, output_path, framerate=30, drop_probability=0.5):
     with open(os.path.join(input_path, "nalu.csv"), "r", encoding="utf8", newline="") as file:
         reader = csv.DictReader(file)
         index = list(reader)
@@ -193,7 +197,7 @@ def rebuild(input_path, output_path, framerate=30):
                 if nalu["pict_type"] == "I":
                     if first:
                         first = False
-                    else:
+                    elif random.random() < drop_probability:
                         continue
                 outfile.write(data)
     subprocess.Popen(
@@ -223,6 +227,7 @@ def main():
     parser.add_argument("-k", "--keyint-min", type=int, default=25)
     parser.add_argument("-b", "--bf", type=int, default=0)
     parser.add_argument("-r", "--framerate", type=float, default=30)
+    parser.add_argument("-t", "--probability", type=float, default=1)
     args = parser.parse_args()
     compression_options = {
         "-crf": str(args.crf),
@@ -236,11 +241,11 @@ def main():
     if args.action == "preprocess":
         preprocess(args.input_path, args.output_path, compression_options)
     elif args.action == "rebuild":
-        rebuild(args.input_path, args.output_path, args.framerate)
+        rebuild(args.input_path, args.output_path, args.framerate, args.probability)
     elif args.action == "full":
         tempdir = os.path.join(tempfile.gettempdir(), "foo")
         preprocess(args.input_path, tempdir, compression_options)
-        rebuild(tempdir, args.output_path, args.framerate)
+        rebuild(tempdir, args.output_path, args.framerate, args.probability)
     elif args.action == "split":
         split_nalu(args.input_path, args.output_path)
     elif args.action == "probe":
