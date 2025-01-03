@@ -10,14 +10,15 @@ Script | Description
 ------ | -----------
 [Drop h264 I-Frames](drop-h264-iframes/) | Removes every reference frames from a video, except the first one.
 [Optical Flow Transfer](optical-flow-transfer/) | Transfer optical flow from one video to an image.
+[Audacity Scripting](audacity-scripting/) | Frame by frame datamoshing relying on Audacity.
 
 ## Examples
 
 Here are some videos made using those scripts (click on the thumbnails to see the videos):
 
-Drop h264 I-Frames | Optical Flow Transfer
------------------- | ---------------------
-[![](drop-h264-iframes/example.gif)](https://drive.chalier.fr/protected/datamoshing/sunrise-dive.mp4) | [![](optical-flow-transfer/example.gif)](https://drive.chalier.fr/protected/datamoshing/optical-flow-transfer-output.mp4)
+Drop h264 I-Frames | Optical Flow Transfer | Audacity Scripting
+------------------ | --------------------- | ------------------
+[![](drop-h264-iframes/example.gif)](https://drive.chalier.fr/protected/datamoshing/sunrise-dive.mp4) | [![](optical-flow-transfer/example.gif)](https://drive.chalier.fr/protected/datamoshing/optical-flow-transfer-output.mp4) | ![](audacity-scripting/example.gif)
 
 ## Demo
 

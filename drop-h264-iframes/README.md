@@ -81,7 +81,3 @@ There's more information on [FFmpeg's documentation](https://trac.ffmpeg.org/wik
 [![](example.gif)](https://drive.chalier.fr/protected/datamoshing/sunrise-dive.mp4)
 
 I wrote some details [on my blog](https://chalier.fr/blog/datamoshing#droppingreferenceframes).
-
-## Known Issues
-
-The resulting video may stutter if too many frames are dropped. It it less noticeable with high FPS videos. Unless I get to time travel, I will probably not address it.
