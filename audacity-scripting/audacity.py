@@ -1,6 +1,8 @@
 import argparse
 import io
+import math
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -101,6 +103,13 @@ def extract_frames(video_path: str, tempdir: str):
     ]).wait()
 
 
+def format_dynamic_command(command: str, t: int) -> str:
+    c = command
+    for m in reversed(list(re.finditer(r"\{([^\}]+)\}", c))):
+        c = c[:m.start()] + str(eval(m.group(1))) + c[m.end():]
+    return c
+
+
 def process(video_path: str, filter_path: str, output_path: str):
     tempdir = get_tempdir()
     same = is_same_tempdir(video_path, tempdir)
@@ -115,8 +124,9 @@ def process(video_path: str, filter_path: str, output_path: str):
     with open(filter_path, "r") as file:
         f = lambda l: not (l.strip() == "" or l.startswith("#"))
         filter_commands = list(filter(f, file.read().strip().split("\n")))
+    fps = get_video_framerate(video_path)
     with Audacity() as au3:
-        for image_name in tqdm.tqdm(os.listdir(os.path.join(tempdir, "framesin"))):
+        for i, image_name in enumerate(tqdm.tqdm(os.listdir(os.path.join(tempdir, "framesin")))):
             image_path = os.path.join(tempdir, "framesin", image_name)
             with open(image_path, "rb") as file:
                 data = file.read()
@@ -130,7 +140,7 @@ def process(video_path: str, filter_path: str, output_path: str):
             au3.do(f"Import2: Filename={os.path.realpath(os.path.join(tempdir, 'input.wav'))}")
             au3.do(f"SelectAll: ")
             for command in filter_commands:
-                au3.do(command)
+                au3.do(format_dynamic_command(command, i/fps))
             au3.do(f"Export2: Filename={os.path.realpath(os.path.join(tempdir, 'output.wav'))}")
             subprocess.Popen([
                 "ffmpeg",
@@ -158,6 +168,7 @@ def process(video_path: str, filter_path: str, output_path: str):
         "-i", os.path.join(tempdir, "framesout", "%09d.bmp"),
         "-pix_fmt", "yuv420p",
         output_path,
+        "-y",
     ]).wait()
     os.startfile(output_path)
 
