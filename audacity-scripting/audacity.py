@@ -84,7 +84,8 @@ def process(video_path: str, filter_path: str, output_path: str):
         os.path.join(tempdir, "framesin", "%09d.bmp"),
     ]).wait()
     with open(filter_path, "r") as file:
-        filter_command = file.read().strip()
+        f = lambda l: not (l.strip() == "" or l.startswith("#"))
+        filter_commands = list(filter(f, file.read().strip().split("\n")))
     with Audacity() as au3:
         for image_name in tqdm.tqdm(os.listdir(os.path.join(tempdir, "framesin"))):
             image_path = os.path.join(tempdir, "framesin", image_name)
@@ -99,7 +100,8 @@ def process(video_path: str, filter_path: str, output_path: str):
             au3.do(f"RemoveTracks: ")
             au3.do(f"Import2: Filename={os.path.realpath(os.path.join(tempdir, 'input.wav'))}")
             au3.do(f"SelectAll: ")
-            au3.do(filter_command)
+            for command in filter_commands:
+                au3.do(command)
             au3.do(f"Export2: Filename={os.path.realpath(os.path.join(tempdir, 'output.wav'))}")
             subprocess.Popen([
                 "ffmpeg",

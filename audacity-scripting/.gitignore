@@ -1,0 +1,5 @@
+filters/*
+!filters/cut_high.txt
+!filters/cut_mid.txt
+!filters/cut_low.txt
+!filters/phone.txt
