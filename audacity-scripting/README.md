@@ -39,7 +39,15 @@ pip -m install requirements.txt
    python audacity.py <input-video> <input-filter> <output-video>
    ```
 
-The input filter is a preset text file for the *Filter Curve* effect in Audacity. You'll find some in the [filters](filters) folder. You can create one by running Audacity, opening the *Filter Curve* effect, messing around with the EQ line, and exporting it as a preset .txt file.
+The input filter is a preset text file for built-in effects in Audacity such as *Filter Curve* or *Reverb*. You'll find some in the [filters](filters) folder. You can create one by running Audacity, opening the effect, messing around with the parameters, and exporting it as a preset `.txt` file. Multiple filters can be applied, on multiple lines. Blank lines and lines starting with `#` are ignored. Expressions between braces are evaluated using Python `eval` function, depending on the parameter `t`, the output frame timestamp in seconds (you can write the expression yourself or use tools such as [Lagrange Polynomial Editor](https://chalier.fr/lagrange/) to build larger ones). Here are some examples:
+
+```text
+# Echo with variable decay
+Echo:Decay="{0.25 * (1 + math.sin(0.5 * t * 6))}" Delay="1"
+
+# Low-pass with variable cut-off
+FilterCurve:f0="{10**(2 + math.sin(t * 6.28))}" f1="{10**(2 + math.sin(t * 6.28)) + 20}" FilterLength="8191" InterpolateLin="0" InterpolationMethod="B-spline" v0="-30" v1="0"
+```
 
 ## Examples
 
