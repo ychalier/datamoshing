@@ -1,9 +1,9 @@
 import argparse
 import io
 import os
+import shutil
 import subprocess
 import sys
-import tempfile
 import wave
 
 import tqdm
@@ -71,10 +71,26 @@ class Audacity:
         self.fromfile.close()
 
 
-def process(video_path: str, filter_path: str, output_path: str):
-    tempdir = tempfile.gettempdir()
-    os.makedirs(os.path.join(tempdir, "framesin"), exist_ok=True)
-    os.makedirs(os.path.join(tempdir, "framesout"), exist_ok=True)
+def get_tempdir() -> str:
+    tempdir = os.path.join(os.path.dirname(__file__), "tmp")
+    os.makedirs(tempdir, exist_ok=True)
+    return tempdir
+
+
+def is_same_tempdir(video_path: str, tempdir: str) -> bool:
+    same = False
+    if os.path.exists(os.path.join(tempdir, "meta.txt")):
+        with open("meta.txt", "r", encoding="utf8") as file:
+            same = file.read() == os.path.realpath(video_path)
+        if not same:
+            shutil.rmtree(tempdir)
+    os.makedirs(tempdir, exist_ok=True)
+    with open(os.path.join(tempdir, "meta.txt"), "w", encoding="utf8") as file:
+        file.write(os.path.realpath(video_path))
+    return same
+
+
+def extract_frames(video_path: str, tempdir: str):
     subprocess.Popen([
         "ffmpeg",
         "-hide_banner",
@@ -83,6 +99,19 @@ def process(video_path: str, filter_path: str, output_path: str):
         "-i", video_path,
         os.path.join(tempdir, "framesin", "%09d.bmp"),
     ]).wait()
+
+
+def process(video_path: str, filter_path: str, output_path: str):
+    tempdir = get_tempdir()
+    same = is_same_tempdir(video_path, tempdir)
+    if os.path.isdir(os.path.join(tempdir, "framesin")) and not same:
+        shutil.rmtree(os.path.join(tempdir, "framesin"))
+    if not os.path.isdir(os.path.join(tempdir, "framesin")):
+        os.makedirs(os.path.join(tempdir, "framesin"))
+        extract_frames(video_path, tempdir)
+    if os.path.exists(os.path.join(tempdir, "framesout")):
+        shutil.rmtree(os.path.join(tempdir, "framesout"))
+    os.makedirs(os.path.join(tempdir, "framesout"), exist_ok=True)
     with open(filter_path, "r") as file:
         f = lambda l: not (l.strip() == "" or l.startswith("#"))
         filter_commands = list(filter(f, file.read().strip().split("\n")))

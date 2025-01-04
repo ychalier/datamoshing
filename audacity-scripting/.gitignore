@@ -3,3 +3,4 @@ filters/*
 !filters/cut_mid.txt
 !filters/cut_low.txt
 !filters/phone.txt
+tmp
