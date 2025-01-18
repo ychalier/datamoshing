@@ -1,0 +1,3 @@
+[submodule "optical-flow-transfer"]
+	path = optical-flow-transfer
+	url = ssh://git@github.com/ychalier/transflow

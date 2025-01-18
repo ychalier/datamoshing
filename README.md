@@ -10,7 +10,7 @@ Script | Description
 ------ | -----------
 [Drop h264 I-Frames](drop-h264-iframes/) | Removes every reference frames from a video, except the first one. (poorly works)
 [Drop Xvid I-Frames](drop-xvid-iframes/) | Removes every reference frames from a video, except the first one. (works great!)
-[Optical Flow Transfer](optical-flow-transfer/) | Transfer optical flow from one video to an image.
+[Optical Flow Transfer](optical-flow-transfer/) | Transfer optical flow from one media to another. Dedicated repository: [Transflow](https://github.com/ychalier/transflow/).
 [Audacity Scripting](audacity-scripting/) | Frame by frame datamoshing relying on Audacity.
 
 ## Examples
@@ -19,8 +19,5 @@ Here are some videos made using those scripts (click on the thumbnails to see th
 
 Drop h264 I-Frames | Drop Xvid I-Frames | Optical Flow Transfer | Audacity Scripting
 ------------------ | ------------------ | --------------------- | ------------------
-[![](drop-h264-iframes/example.gif)](https://drive.chalier.fr/protected/datamoshing/sunrise-dive.mp4) | [![](drop-xvid-iframes/example.gif)](https://drive.chalier.fr/protected/datamoshing/xvid.mp4) | [![](optical-flow-transfer/example.gif)](https://drive.chalier.fr/protected/datamoshing/optical-flow-transfer-output.mp4) | ![](audacity-scripting/example.gif)
+[![](drop-h264-iframes/example.gif)](https://drive.chalier.fr/protected/datamoshing/sunrise-dive.mp4) | [![](drop-xvid-iframes/example.gif)](https://drive.chalier.fr/protected/datamoshing/xvid.mp4) | [![](https://github.com/ychalier/transflow/raw/main/out/ExampleDeer.gif)](https://github.com/ychalier/transflow/raw/main/out/ExampleDeer.mp4) | ![](audacity-scripting/example.gif)
 
-## Demo
-
-Here is a [web demonstration](https://chalier.fr/datamoshing/) where you may try different video sources (such as the webcam) and image sources to perform optical flow transfer.
