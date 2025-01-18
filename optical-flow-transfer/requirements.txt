@@ -1,4 +1,0 @@
-tqdm
-Pillow
-python-opencv
-numpy
