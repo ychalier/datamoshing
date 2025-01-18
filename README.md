@@ -10,7 +10,7 @@ Script | Description
 ------ | -----------
 [Drop h264 I-Frames](drop-h264-iframes/) | Removes every reference frames from a video, except the first one. (poorly works)
 [Drop Xvid I-Frames](drop-xvid-iframes/) | Removes every reference frames from a video, except the first one. (works great!)
-[Optical Flow Transfer](optical-flow-transfer/) | Transfer optical flow from one media to another. Dedicated repository: [Transflow](https://github.com/ychalier/transflow/).
+[Optical Flow Transfer](https://github.com/ychalier/transflow) | Transfer optical flow from one media to another.
 [Audacity Scripting](audacity-scripting/) | Frame by frame datamoshing relying on Audacity.
 
 ## Examples
